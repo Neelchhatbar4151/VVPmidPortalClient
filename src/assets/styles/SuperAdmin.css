@@ -1,0 +1,17 @@
+.subNav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgb(232, 232, 232), white);
+    margin-bottom: 40px;
+}
+.subNav div {
+    width: 50%;
+    padding: 20px 0px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+.backChange {
+    background-image: linear-gradient(to left, #124682, #5780c2);
+}

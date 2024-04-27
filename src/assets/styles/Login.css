@@ -1,0 +1,225 @@
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Bahnschrift";
+}
+@font-face {
+    font-family: "Bahnschrift";
+    src: url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot");
+    src: url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot?#iefix")
+            format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff2")
+            format("woff2"),
+        url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff")
+            format("woff"),
+        url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.ttf")
+            format("truetype"),
+        url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.svg#Bahnschrift")
+            format("svg");
+}
+
+.Box {
+    /* background-color: white; */
+    border-radius: 20px;
+    width: 80%;
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+    background-color: white;
+    box-shadow: 0 0 95px -2px white;
+    max-width: 1100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to right, #124682, #5780c2);
+}
+.containerVariation {
+    width: 100%;
+    height: 100vh;
+    background-image: repeating-linear-gradient(
+        135deg,
+        white 2.5%,
+        rgb(248, 248, 248) 5%
+    );
+}
+.nameCover {
+    margin-top: 60px;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleText {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 45px;
+    color: #124682;
+}
+
+.department {
+    display: block;
+    text-align: center;
+    font-size: 25px;
+    color: #5780c2;
+    /* margin-left: 65px; */
+    /* margin-top: 10px; */
+}
+
+.description {
+    color: #124682;
+    text-align: center;
+    margin-top: 60px;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #124682, #5780c2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.description .a {
+    font-size: 35px;
+}
+.description .b {
+    font-size: 25px;
+}
+
+.instruction {
+    color: #124682;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+@media screen and (max-width: 900px) {
+    .titleText {
+        font-size: 30px;
+    }
+    .nameCover {
+        display: block;
+        text-align: center;
+    }
+    #logo {
+        margin: auto;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .department {
+        margin-top: 55px;
+    }
+    .description .a {
+        font-size: 30px;
+    }
+    .description {
+        margin-top: 40px;
+    }
+    .instruction {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .Box {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0%;
+    }
+    .department {
+        margin-top: 90px;
+    }
+}
+
+.userId {
+    outline: none;
+    /* text-decoration: none; */
+    font-size: 22px;
+    padding: 10px;
+    background: linear-gradient(white, white) padding-box,
+        linear-gradient(to right, #124682, #5780c2) border-box;
+    border-radius: 10px;
+    border: 4px solid transparent;
+    /* text-align: left; */
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+}
+.group input[type="text"],
+.group input[type="number"] {
+    border: none;
+    outline: none;
+    text-decoration: none;
+    width: 100%;
+    font-size: 20px;
+}
+
+.cover {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    width: 100%;
+    height: 100%;
+    /* text-decoration: none; */
+    outline: none;
+    background-color: transparent;
+    border: 0px;
+    font-size: 25px;
+    color: white;
+    font-variant: small-caps;
+    text-align: left;
+}
+.btn:hover {
+    cursor: pointer;
+}
+
+.buttonContainer {
+    background-image: linear-gradient(to right, #124682, #5780c2);
+    margin: 40px 0px;
+    padding: 10px 20px;
+    font-weight: 800;
+    border-radius: 10px;
+    width: 27%;
+    min-width: 200px;
+    display: flex;
+    text-align: center;
+}
+
+.group {
+    display: inline-block;
+    min-width: 300px;
+    width: 40%;
+    max-width: 500px;
+}
+
+.inputs {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.arrow {
+    fill: white;
+}
+
+#dd,
+#dd1,
+#dd option,
+#dd1 option {
+    width: 60%;
+    font-size: larger;
+    background-color: transparent;
+    margin-left: 10px;
+}
+
+.semSelector {
+    color: #124682;
+}
