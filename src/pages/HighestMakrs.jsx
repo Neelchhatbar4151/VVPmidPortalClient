@@ -46,7 +46,7 @@ const HighestMarks = () => {
     if (studentUser) {
         return (
             <div className="containerVariation">
-                <div className="remove">
+                <div className="remove markSheet">
                     <Title />
                     <div className="description" style={{ marginTop: "20px" }}>
                         <div
@@ -74,17 +74,13 @@ const HighestMarks = () => {
                                     <td>{item.subject}</td>
                                     <td>
                                         <span>
-                                            {item.mid1 == null
-                                                ? "-"
-                                                : item.mid1}
+                                            {item.mid1 == 0 ? "-" : item.mid1}
                                         </span>
                                         /40
                                     </td>
                                     <td>
                                         <span>
-                                            {item.mid2 == null
-                                                ? "-"
-                                                : item.mid2}
+                                            {item.mid2 == 0 ? "-" : item.mid2}
                                         </span>
                                         /40
                                     </td>

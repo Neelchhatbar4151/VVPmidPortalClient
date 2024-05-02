@@ -65,9 +65,9 @@ function StudentLogin() {
 
     return (
         <>
-            <div className="container"></div>
-            <div className="Box">
-                {/* <div className="nameCover">
+            <div className="container">
+                <div className="Box">
+                    {/* <div className="nameCover">
                         <img
                             id="logo"
                             src={vvp}
@@ -82,68 +82,69 @@ function StudentLogin() {
                     <div className="department">
                         Department Of Information Technology
                     </div> */}
-                <Title />
-                <div className="description">
-                    <div className="a">A Web Portal For Viewing</div>
-                    <div className="b">Student's Mid - Sem Marks</div>
-                </div>
-                <div className="instruction">Login To Your Account</div>
-                <div className="inputs">
-                    <div className="group">
-                        <div className="userId">
-                            <label
-                                htmlFor="sem"
-                                style={{ marginRight: "10px" }}
-                                className="semSelector"
-                            >
-                                Semester :
-                            </label>
-                            <select name="sem" id="dd">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                            </select>
+                    <Title />
+                    <div className="description">
+                        <div className="a">A Web Portal For Viewing</div>
+                        <div className="b">Student's Mid - Sem Marks</div>
+                    </div>
+                    <div className="instruction">Login To Your Account</div>
+                    <div className="inputs">
+                        <div className="group">
+                            <div className="userId">
+                                <label
+                                    htmlFor="sem"
+                                    style={{ marginRight: "10px" }}
+                                    className="semSelector"
+                                >
+                                    Semester :
+                                </label>
+                                <select name="sem" id="dd">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                            <div className="userId">
+                                <input
+                                    type="number"
+                                    placeholder="Enrollment no."
+                                    name="userId"
+                                    onChange={Handle}
+                                />
+                            </div>
+                            <div className="userId">
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    onChange={Handle}
+                                />
+                            </div>
                         </div>
-                        <div className="userId">
-                            <input
-                                type="number"
-                                placeholder="Enrollment no."
-                                name="userId"
-                                onChange={Handle}
-                            />
-                        </div>
-                        <div className="userId">
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                onChange={Handle}
+                    </div>
+                    <div className="cover">
+                        <div className="buttonContainer" onClick={Login}>
+                            <button className="btn">Login</button>
+                            <img
+                                src={processing ? loading : arrow}
+                                alt="arrow"
+                                className="arrow"
+                                width="40px"
                             />
                         </div>
                     </div>
-                </div>
-                <div className="cover">
-                    <div className="buttonContainer" onClick={Login}>
-                        <button className="btn">Login</button>
-                        <img
-                            src={processing ? loading : arrow}
-                            alt="arrow"
-                            className="arrow"
-                            width="40px"
-                        />
-                    </div>
-                </div>
 
-                <div className="credits">
+                    <div className="credits">
+                        Developed By <u>Neel</u> and <u>Jay</u>
+                    </div>
+                </div>
+                <div className="credit">
                     Developed By <u>Neel</u> and <u>Jay</u>
                 </div>
-            </div>
-            <div className="credit">
-                Developed By <u>Neel</u> and <u>Jay</u>
             </div>
         </>
     );

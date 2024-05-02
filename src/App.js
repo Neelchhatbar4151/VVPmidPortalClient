@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 
 import "./assets/styles/Login.css";
 import "./assets/styles/markSheet.css";
-import "./assets/styles/Bubbles.css";
 import "./assets/styles/Loader.css";
 import "./assets/styles/SuperAdmin.css";
 

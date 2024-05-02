@@ -221,11 +221,30 @@ function Login() {
                         </div>
                     </div>
                     <div className="credits">
-                        Developed By <u>Neel</u> and <u>Jay</u>
+                        Developed By{" "}
+                        <a href="https://neelchhatbar4151.github.io/portfolio/">
+                            Neel
+                        </a>
+                    </div>
+                    <div className="credits">
+                        Designed By{" "}
+                        <a href="https://neelchhatbar4151.github.io/portfolio/">
+                            Jay
+                        </a>
                     </div>
                 </div>
+
                 <div className="credit">
-                    Developed By <u>Neel</u> and <u>Jay</u>
+                    Developed By{" "}
+                    <a href="https://neelchhatbar4151.github.io/portfolio/">
+                        Neel
+                    </a>
+                </div>
+                <div className="credit">
+                    Designed By{" "}
+                    <a href="https://neelchhatbar4151.github.io/portfolio/">
+                        Jay
+                    </a>
                 </div>
             </div>
         </>
