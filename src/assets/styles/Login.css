@@ -52,7 +52,7 @@ body {
     );
 }
 .nameCover {
-    margin-top: 60px;
+    margin-top: 40px;
     height: 60px;
     width: 100%;
     display: flex;
@@ -97,12 +97,12 @@ body {
     color: #124682;
     font-size: 30px;
     text-align: center;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 @media screen and (max-width: 900px) {
     .titleText {
-        font-size: 30px;
+        font-size: 25px;
     }
     .nameCover {
         display: block;
@@ -114,27 +114,57 @@ body {
         margin-bottom: 10px;
     }
     .department {
-        margin-top: 55px;
+        margin-top: 50px;
     }
     .description .a {
-        font-size: 30px;
+        font-size: 23px;
     }
     .description {
         margin-top: 40px;
     }
     .instruction {
         margin-top: 40px;
+        font-size: 27px;
     }
 }
-
+.credit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px 20px;
+    color: white;
+    font-size: larger;
+    letter-spacing: 1px;
+    display: block;
+}
+.credits {
+    margin: 10px 20px;
+    color: black;
+    font-size: larger;
+    letter-spacing: 1px;
+    display: none;
+    text-align: center;
+    opacity: 0.4;
+}
 @media screen and (max-width: 530px) {
     .Box {
-        width: 100%;
-        height: 100vh;
+        width: 95%;
+        border-radius: 10px;
+        height: 85vh;
         border-radius: 0%;
     }
+    .container {
+        height: 90vh;
+    }
     .department {
-        margin-top: 90px;
+        margin-top: 70px;
+        font-size: 22px;
+    }
+    .credit {
+        display: none;
+    }
+    .credits {
+        display: block;
     }
 }
 
@@ -149,18 +179,20 @@ body {
     border: 4px solid transparent;
     /* text-align: left; */
     width: 70%;
+    min-width: 250px;
     margin: auto;
     margin-top: 20px;
+    text-align: left;
 }
 .group input[type="text"],
-.group input[type="number"] {
+.group input[type="number"],
+.group input[type="password"] {
     border: none;
     outline: none;
     text-decoration: none;
     width: 100%;
     font-size: 20px;
 }
-
 .cover {
     display: flex;
     justify-content: center;
@@ -189,7 +221,7 @@ body {
     font-weight: 800;
     border-radius: 10px;
     width: 27%;
-    min-width: 200px;
+    min-width: 240px;
     display: flex;
     text-align: center;
 }
@@ -203,7 +235,7 @@ body {
 
 .inputs {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .arrow {
@@ -214,7 +246,7 @@ body {
 #dd1,
 #dd option,
 #dd1 option {
-    width: 60%;
+    width: 40%;
     font-size: larger;
     background-color: transparent;
     margin-left: 10px;

@@ -2,7 +2,7 @@ import vvp from "../assets/images/vvp.png";
 const Title = () => {
     return (
         <div>
-            <div className="nameCover" style={{ marginTop: "40px" }}>
+            <div className="nameCover">
                 <img
                     id="logo"
                     src={vvp}

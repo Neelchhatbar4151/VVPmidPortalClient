@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setStudentUser, developement } from "../processes/userData";
+import Title from "../components/Title";
 
-import vvp from "../assets/images/vvp.png";
+import loading from "../assets/images/loading.svg";
 import arrow from "../assets/images/arrow.svg";
 function StudentLogin() {
     const history = useNavigate();
+    const [processing, setProcessing] = useState(false);
     const [inputValues, setInputValues] = useState({
         userId: null,
         password: "",
     });
+
     const Handle = (event) => {
         const { name, value } = event.target;
         setInputValues({ ...inputValues, [name]: value });
     };
     const Login = async () => {
+        setProcessing(true);
         try {
             if (!inputValues.userId || !inputValues.password) {
                 alert("Fill The Fields Properly");
@@ -38,7 +42,6 @@ function StudentLogin() {
                     }
                 );
                 const data = await res.json();
-
                 if (data.status === 400) {
                     alert("Fill the fields properly");
                 } else if (data.status === 401) {
@@ -57,13 +60,14 @@ function StudentLogin() {
             console.log(error);
             alert("Unknown Error Occurred.. !");
         }
+        setProcessing(false);
     };
 
     return (
         <>
-            <div className="container">
-                <div className="Box">
-                    <div className="nameCover">
+            <div className="container"></div>
+            <div className="Box">
+                {/* <div className="nameCover">
                         <img
                             id="logo"
                             src={vvp}
@@ -77,59 +81,69 @@ function StudentLogin() {
                     </div>
                     <div className="department">
                         Department Of Information Technology
-                    </div>
-
-                    <div className="description">
-                        <div className="a">A Web Portal For Viewing</div>
-                        <div className="b">Student's Mid - Sem Marks</div>
-                    </div>
-                    <div className="instruction">Login To Your Account</div>
-                    <div className="inputs">
-                        <div className="group">
-                            <div className="userId">
-                                <label htmlFor="sem" className="semSelector">
-                                    Semester :
-                                </label>
-                                <select name="sem" id="dd">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                </select>
-                            </div>
-                            <div className="userId">
-                                <input
-                                    type="number"
-                                    placeholder="Enrollment no."
-                                    name="userId"
-                                    onChange={Handle}
-                                />
-                            </div>
-                            <div className="userId">
-                                <input
-                                    type="text"
-                                    placeholder="Password"
-                                    name="password"
-                                    onChange={Handle}
-                                />
-                            </div>
+                    </div> */}
+                <Title />
+                <div className="description">
+                    <div className="a">A Web Portal For Viewing</div>
+                    <div className="b">Student's Mid - Sem Marks</div>
+                </div>
+                <div className="instruction">Login To Your Account</div>
+                <div className="inputs">
+                    <div className="group">
+                        <div className="userId">
+                            <label
+                                htmlFor="sem"
+                                style={{ marginRight: "10px" }}
+                                className="semSelector"
+                            >
+                                Semester :
+                            </label>
+                            <select name="sem" id="dd">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
                         </div>
-                    </div>
-                    <div className="cover">
-                        <div className="buttonContainer" onClick={Login}>
-                            <button className="btn">Login</button>
-                            <img
-                                src={arrow}
-                                alt="arrow"
-                                className="arrow"
-                                width="40px"
+                        <div className="userId">
+                            <input
+                                type="number"
+                                placeholder="Enrollment no."
+                                name="userId"
+                                onChange={Handle}
+                            />
+                        </div>
+                        <div className="userId">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                onChange={Handle}
                             />
                         </div>
                     </div>
                 </div>
+                <div className="cover">
+                    <div className="buttonContainer" onClick={Login}>
+                        <button className="btn">Login</button>
+                        <img
+                            src={processing ? loading : arrow}
+                            alt="arrow"
+                            className="arrow"
+                            width="40px"
+                        />
+                    </div>
+                </div>
+
+                <div className="credits">
+                    Developed By <u>Neel</u> and <u>Jay</u>
+                </div>
+            </div>
+            <div className="credit">
+                Developed By <u>Neel</u> and <u>Jay</u>
             </div>
         </>
     );

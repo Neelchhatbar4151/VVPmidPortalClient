@@ -11,7 +11,11 @@ import StudentLogin from "./pages/StudentLogin";
 import MarkSheet from "./pages/MarkSheet";
 import AdminPortal from "./pages/AdminPortal";
 import SuperAdminPortal from "./pages/SuperAdminPortal";
+import HighestMarks from "./pages/HighestMakrs";
 
+const Error = () => {
+    return <>Invalid URL</>;
+};
 function App() {
     return (
         <>
@@ -25,6 +29,8 @@ function App() {
                     path="/SuperAdminPortal"
                     element={<SuperAdminPortal />}
                 />
+                <Route exact path="/Highest" element={<HighestMarks />} />
+                <Route path="*" element={<Error />} />
             </Routes>
         </>
     );

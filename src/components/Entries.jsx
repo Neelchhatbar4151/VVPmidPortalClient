@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { developement } from "../processes/userData";
+
+import loading from "../assets/images/loading.svg";
 import circle from "../assets/images/circle.png";
 import arrow from "../assets/images/arrow.svg";
 
@@ -7,10 +9,14 @@ import ExcelFetcher, { getStudentList } from "../components/ExcelFetcher";
 
 const Entries = () => {
     const [students, setStudents] = useState([]);
+    const [processing1, setProcessing1] = useState(false);
+    const [processing2, setProcessing2] = useState(false);
+    const [processing3, setProcessing3] = useState(false);
     const [key, setKey] = useState("");
     const [sem, setSem] = useState(1);
     useEffect(() => {}, [students]);
     const removeAll = async () => {
+        setProcessing2(true);
         try {
             const res = await fetch(
                 developement
@@ -45,6 +51,7 @@ const Entries = () => {
         } catch (error) {
             alert("Unknown Error Occurred.. !");
         }
+        setProcessing2(false);
     };
     const removeOne = async (student) => {
         try {
@@ -83,6 +90,7 @@ const Entries = () => {
         }
     };
     const getList = async () => {
+        setProcessing1(true);
         try {
             const res = await fetch(
                 developement
@@ -120,8 +128,10 @@ const Entries = () => {
         } catch (error) {
             alert("Unknown Error Occurred in Fetching Students Data.. !");
         }
+        setProcessing1(false);
     };
     const addStudents = async () => {
+        setProcessing3(true);
         try {
             const list = getStudentList();
             if (
@@ -180,6 +190,7 @@ const Entries = () => {
         } catch (error) {
             alert("Unknown Error Occurred.. ! Please Recheck File");
         }
+        setProcessing3(false);
     };
 
     // if (JSON.stringify(students) !== JSON.stringify([])) {
@@ -233,7 +244,7 @@ const Entries = () => {
                                 Load Student List
                             </button>
                             <img
-                                src={circle}
+                                src={processing1 ? loading : circle}
                                 alt="circle"
                                 className="arrow"
                                 width="40px"
@@ -296,7 +307,7 @@ const Entries = () => {
                             >
                                 <button className="btn">Remove All</button>
                                 <img
-                                    src={circle}
+                                    src={processing2 ? loading : circle}
                                     alt="circle"
                                     className="arrow"
                                     width="40px"
@@ -329,7 +340,7 @@ const Entries = () => {
                                         Add Students
                                     </button>
                                     <img
-                                        src={arrow}
+                                        src={processing3 ? loading : arrow}
                                         alt="arrow"
                                         className="arrow"
                                         width="40px"

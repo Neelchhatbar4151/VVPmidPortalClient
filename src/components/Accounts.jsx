@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { developement } from "../processes/userData";
+
+import loading from "../assets/images/loading.svg";
 import arrow from "../assets/images/arrow.svg";
 const Accounts = () => {
     const [admins, setAdmins] = useState([]);
     const [flag, setFlag] = useState(true);
+    const [processing, setProcessing] = useState(false);
     const [inputValues, setInputValues] = useState({
         userId: "",
         password: "",
@@ -61,6 +64,7 @@ const Accounts = () => {
         }
     };
     const Add = async () => {
+        setProcessing(true);
         if (
             !inputValues.userId ||
             !inputValues.password ||
@@ -111,6 +115,7 @@ const Accounts = () => {
                 alert("Unknown error occurred");
             }
         }
+        setProcessing(false);
     };
     const getList = async () => {
         try {
@@ -190,7 +195,7 @@ const Accounts = () => {
                     </div>
                     <div className="userId">
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Password"
                             name="password"
                             onChange={Handle}
@@ -220,7 +225,7 @@ const Accounts = () => {
                 <div className="buttonContainer" onClick={Add}>
                     <button className="btn">Add</button>
                     <img
-                        src={arrow}
+                        src={processing ? loading : arrow}
                         alt="arrow"
                         className="arrow"
                         width="40px"

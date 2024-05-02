@@ -9,12 +9,14 @@ import {
 } from "../processes/userData.jsx";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import Title from "../components/Title.jsx";
 
-import vvp from "../assets/images/vvp.png";
+import loading from "../assets/images/loading.svg";
 import arrow from "../assets/images/arrow.svg";
 
 function Login() {
     const history = useNavigate();
+    const [processing, setProcessing] = useState(false);
     useEffect(() => {
         if (isAdminLoggedIn) {
             // console.log(loginUser);
@@ -37,6 +39,7 @@ function Login() {
         setInputValues({ ...inputValues, admin: value });
     };
     const Login = async () => {
+        setProcessing(true);
         try {
             if (!inputValues.userId || !inputValues.password) {
                 alert("Fill The Fields Properly");
@@ -126,13 +129,14 @@ function Login() {
         } catch (error) {
             alert("Unknown error occurred");
         }
+        setProcessing(false);
     };
 
     return (
         <>
             <div className="container">
                 <div className="Box">
-                    <div className="nameCover">
+                    {/* <div className="nameCover">
                         <img
                             id="logo"
                             src={vvp}
@@ -146,8 +150,8 @@ function Login() {
                     </div>
                     <div className="department">
                         Department Of Information Technology
-                    </div>
-
+                    </div> */}
+                    <Title />
                     <div className="description">
                         <div className="a">A Web Portal For Staff</div>
                         <div className="b">Mid - Sem Marks Management</div>
@@ -156,7 +160,12 @@ function Login() {
                     <div className="inputs">
                         <div className="group">
                             <div className="userId">
-                                <label htmlFor="1">Super Admin</label>
+                                <label
+                                    htmlFor="1"
+                                    style={{ marginRight: "10px" }}
+                                >
+                                    Super Admin
+                                </label>
                                 <input
                                     type="radio"
                                     name="Role"
@@ -166,13 +175,18 @@ function Login() {
                                 />
                             </div>
                             <div className="userId">
-                                <label htmlFor="2">Admin</label>
+                                <label
+                                    htmlFor="2"
+                                    style={{ marginRight: "10px" }}
+                                >
+                                    Admin
+                                </label>
                                 <input
                                     type="radio"
                                     name="Role"
                                     id="2"
-                                    checked={inputValues.admin === true}
                                     onChange={() => toggle(true)}
+                                    checked={inputValues.admin === true}
                                 />
                             </div>
                         </div>
@@ -187,7 +201,7 @@ function Login() {
                             </div>
                             <div className="userId">
                                 <input
-                                    type="text"
+                                    type="password"
                                     placeholder="Password"
                                     name="password"
                                     onChange={Handle}
@@ -199,13 +213,19 @@ function Login() {
                         <div className="buttonContainer" onClick={Login}>
                             <button className="btn">Login</button>
                             <img
-                                src={arrow}
+                                src={processing ? loading : arrow}
                                 alt="arrow"
                                 className="arrow"
                                 width="40px"
                             />
                         </div>
                     </div>
+                    <div className="credits">
+                        Developed By <u>Neel</u> and <u>Jay</u>
+                    </div>
+                </div>
+                <div className="credit">
+                    Developed By <u>Neel</u> and <u>Jay</u>
                 </div>
             </div>
         </>

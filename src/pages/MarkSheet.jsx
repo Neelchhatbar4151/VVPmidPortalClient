@@ -10,9 +10,17 @@ function MarkSheet() {
             history("/");
         }
     }, [history]);
+
     if (!studentUser) {
         return <></>;
     } else {
+        let sum1, sum2;
+        sum1 = 0;
+        sum2 = 0;
+        for (let i = 0; i < studentUser.studentMarks.length; i++) {
+            sum1 += studentUser.studentMarks[i].mid1;
+            sum2 += studentUser.studentMarks[i].mid2;
+        }
         return (
             <>
                 <div className="containerVariation">
@@ -70,10 +78,10 @@ function MarkSheet() {
                                     </u>
                                 </div>
                                 <div>
-                                    Status :{" "}
+                                    {/* Status :{" "}
                                     <u style={{ letterSpacing: "2px" }}>
-                                        {studentUser.studentName}
-                                    </u>
+                                        {"Pass/Fail"}
+                                    </u> */}
                                 </div>
                             </div>
                         </div>
@@ -93,31 +101,77 @@ function MarkSheet() {
                                             style={{
                                                 borderBottom:
                                                     "4px solid rgb(" +
-                                                    200 * (1 - item.mid1 / 40) +
+                                                    (item.mid1 <= 20
+                                                        ? "200"
+                                                        : "0") +
                                                     "," +
-                                                    200 * (item.mid1 / 40) +
-                                                    ",0)",
+                                                    (item.mid1 >= 30
+                                                        ? "200"
+                                                        : "0") +
+                                                    "," +
+                                                    (item.mid1 > 20 &&
+                                                    item.mid1 < 30
+                                                        ? "200"
+                                                        : "0") +
+                                                    ")",
                                             }}
                                         >
-                                            <span>{item.mid1}</span>
+                                            <span>
+                                                {item.mid1 == null
+                                                    ? "-"
+                                                    : item.mid1}
+                                            </span>
                                             /40
                                         </td>
                                         <td
                                             style={{
                                                 borderBottom:
                                                     "4px solid rgb(" +
-                                                    200 * (1 - item.mid2 / 40) +
+                                                    (item.mid2 <= 20
+                                                        ? "200"
+                                                        : "0") +
                                                     "," +
-                                                    200 * (item.mid2 / 40) +
-                                                    ",0)",
+                                                    (item.mid2 >= 30
+                                                        ? "200"
+                                                        : "0") +
+                                                    "," +
+                                                    (item.mid2 > 20 &&
+                                                    item.mid2 < 30
+                                                        ? "200"
+                                                        : "0") +
+                                                    ")",
                                             }}
                                         >
-                                            <span>{item.mid2}</span>
+                                            <span>
+                                                {item.mid2 == null
+                                                    ? "-"
+                                                    : item.mid2}
+                                            </span>
                                             /40
                                         </td>
                                     </tr>
                                 ))}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <u>Total: </u>
+                                    </td>
+                                    <td>={sum1}</td>
+                                    <td>={sum2}</td>
+                                </tr>
                             </table>
+                        </div>
+                        <div className="cover">
+                            <div
+                                className="buttonContainer"
+                                onClick={() => {
+                                    history("/Highest");
+                                }}
+                            >
+                                <button className="btn">
+                                    Show Highest Marks
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
