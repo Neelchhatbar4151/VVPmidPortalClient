@@ -1,5 +1,5 @@
 import Cookies from "universal-cookie";
-export let developement = true;
+export let developement = false;
 export var isAdminLoggedIn = false;
 export var isSuperAdminLoggedIn = false;
 export var loginUser;
