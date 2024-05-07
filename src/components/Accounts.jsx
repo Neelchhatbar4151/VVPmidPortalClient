@@ -20,6 +20,23 @@ const Accounts = () => {
     useEffect(() => {
         if (admins.length == 0 && flag == true) {
             getList();
+        } else {
+            const handleWheel = (event) => {
+                event.preventDefault();
+            };
+
+            // Disable increment/decrement functionality on mouse wheel scroll for all input elements
+            const inputElements = document.querySelectorAll(".disable");
+            inputElements.forEach((inputElement) => {
+                inputElement.addEventListener("wheel", handleWheel);
+            });
+
+            // Cleanup: remove event listeners when component unmounts
+            return () => {
+                inputElements.forEach((inputElement) => {
+                    inputElement.removeEventListener("wheel", handleWheel);
+                });
+            };
         }
     }, [admins, flag]);
     const Del = async (_id) => {
@@ -205,6 +222,7 @@ const Accounts = () => {
                 <div className="group">
                     <div className="userId">
                         <input
+                            className="disable"
                             type="number"
                             placeholder="Subject Code"
                             name="subCode"

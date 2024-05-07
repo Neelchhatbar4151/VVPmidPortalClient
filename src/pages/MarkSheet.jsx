@@ -1,8 +1,14 @@
 import { studentUser } from "../processes/userData";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    PDFDownloadLink,
+} from "@react-pdf/renderer";
 
 import Title from "../components/Title";
 function MarkSheet() {
@@ -12,16 +18,82 @@ function MarkSheet() {
             history("/");
         }
     }, [history]);
-    const downloadPdf = async () => {
-        const capture = document.querySelector(".download");
-        html2canvas(capture).then((canvas) => {
-            const imgData = canvas.toDataURL("img/png");
-            const doc = new jsPDF("l", "in", "a3");
-            const componentWidth = doc.internal.pageSize.getWidth();
-            const componentHeight = doc.internal.pageSize.getHeight();
-            doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
-            doc.save("Sem " + studentUser.studentSem + " Mid Marks.pdf");
-        });
+    const styles = StyleSheet.create({
+        page: {
+            flexDirection: "column",
+            padding: 20,
+            fontSize: "12px",
+        },
+        row: {
+            flexDirection: "row",
+            borderBottomWidth: 1,
+            borderBottomColor: "#000",
+        },
+        cell: {
+            flexBasis: "auto",
+            textAlign: "center",
+            padding: "15px",
+        },
+        cell1: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "120px",
+        },
+        cell2: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "250px",
+        },
+        cell3: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "30px",
+        },
+    });
+    const renderPDF = () => {
+        const data = [];
+        for (let i = 0; i < studentUser.studentMarks.length; i++) {
+            data.push(
+                <View key={i} style={styles.row}>
+                    <Text style={(styles.cell, styles.cell1)}>
+                        {studentUser.studentMarks[i].subjectCode}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell2)}>
+                        {studentUser.studentMarks[i].subjectName}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {studentUser.studentMarks[i].mid1}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {studentUser.studentMarks[i].mid2}
+                    </Text>
+                </View>
+            );
+        }
+
+        return (
+            <Document>
+                <Page size="A4" style={styles.page}>
+                    <Text style={{ marginBottom: "30px" }}>
+                        {studentUser.studentName} (
+                        {studentUser.studentEnrollment}) Semester:{" "}
+                        {studentUser.studentSem}
+                    </Text>
+
+                    <View style={styles.row}>
+                        <Text style={(styles.cell, styles.cell1)}>
+                            Subject Code
+                        </Text>
+                        <Text style={(styles.cell, styles.cell2)}>
+                            Subject Name
+                        </Text>
+                        <Text style={(styles.cell, styles.cell3)}>Mid 1</Text>
+                        <Text style={(styles.cell, styles.cell3)}>Mid 2</Text>
+                    </View>
+                    {data}
+                </Page>
+            </Document>
+        );
     };
     if (!studentUser) {
         return <></>;
@@ -54,12 +126,12 @@ function MarkSheet() {
                             </div>
                         </div>
                         <div className="download">
-                            <div className="inputs profile" width="90%">
+                            <div className="inputs" width="90%">
                                 <div
                                     className="group"
                                     style={{
                                         textAlign: "left",
-                                        fontSize: "25px",
+                                        fontSize: "17px",
                                         minWidth: "400px",
                                     }}
                                 >
@@ -80,7 +152,7 @@ function MarkSheet() {
                                     className="group"
                                     style={{
                                         textAlign: "left",
-                                        fontSize: "25px",
+                                        fontSize: "17px",
                                         minWidth: "400px",
                                     }}
                                 >
@@ -191,15 +263,23 @@ function MarkSheet() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="group hideDownload">
+                            <div className="group">
                                 <div className="cover">
-                                    <div
-                                        className="buttonContainer"
-                                        onClick={downloadPdf}
-                                    >
-                                        <button className="btn">
-                                            Download Result
-                                        </button>
+                                    <div className="buttonContainer">
+                                        <PDFDownloadLink
+                                            className="btn"
+                                            document={renderPDF()}
+                                            fileName={
+                                                "sem " +
+                                                studentUser.studentSem +
+                                                " Mid MarkSheet"
+                                            }
+                                        >
+                                            {/* Button to trigger PDF download */}
+                                            <button className="btn">
+                                                Download
+                                            </button>
+                                        </PDFDownloadLink>
                                     </div>
                                 </div>
                             </div>

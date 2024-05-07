@@ -18,10 +18,15 @@ body {
         url("https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.svg#Bahnschrift")
             format("svg");
 }
-
-.Box {
-    /* background-color: white; */
+.remove::-webkit-scrollbar {
+    width: 10px;
+}
+.remove::-webkit-scrollbar-thumb {
+    background-color: #5780c2;
     border-radius: 20px;
+    padding: 30px;
+}
+.Box {
     width: 60%;
     height: 80vh;
     position: absolute;
@@ -31,13 +36,12 @@ body {
     border-radius: 50px;
     background-color: white;
     box-shadow: 0 0 95px -2px white;
-    min-width: 590px;
-    max-width: 1100px;
     overflow-y: scroll;
     overflow-x: hidden;
+    min-width: 590px;
+    max-width: 1100px;
     scrollbar-width: none;
 }
-
 .container {
     width: 100%;
     height: 100vh;
@@ -162,7 +166,7 @@ a {
     .Box {
         min-width: 0px;
         width: 95%;
-        border-radius: 10px;
+        /* border-radius: 10px; */
         height: 85vh;
         border-radius: 0%;
     }
@@ -218,7 +222,8 @@ a {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-    margin: 0;
+    /* margin: 30px; */
+    width: 10%;
 }
 .cover {
     display: flex;

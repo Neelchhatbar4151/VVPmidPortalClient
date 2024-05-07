@@ -1,13 +1,19 @@
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import {
     developement,
     loginUser,
     setIsAdminLoggedIn,
 } from "../processes/userData";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    PDFDownloadLink,
+} from "@react-pdf/renderer";
 
 import loading from "../assets/images/loading.svg";
 import arrow from "../assets/images/arrow.svg";
@@ -24,21 +30,120 @@ function AdminPortal() {
     useEffect(() => {
         if (students.length === 0) {
             getList();
+        } else {
+            const handleWheel = (event) => {
+                event.preventDefault();
+            };
+
+            // Disable increment/decrement functionality on mouse wheel scroll for all input elements
+            const inputElements = document.querySelectorAll(".disable");
+            inputElements.forEach((inputElement) => {
+                inputElement.addEventListener("wheel", handleWheel);
+            });
+
+            // Cleanup: remove event listeners when component unmounts
+            return () => {
+                inputElements.forEach((inputElement) => {
+                    inputElement.removeEventListener("wheel", handleWheel);
+                });
+            };
         }
     }, [students, index]);
-    const downloadPdf = async () => {
-        document.getElementsByClassName("fakeTable")[0].style =
-            "display: block";
-        const capture = document.querySelector(".fakeTable");
-        html2canvas(capture).then((canvas) => {
-            const imgData = canvas.toDataURL("img/png");
-            const doc = new jsPDF("l", "in", "a3");
-            const componentWidth = doc.internal.pageSize.getWidth();
-            const componentHeight = doc.internal.pageSize.getHeight();
-            doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
-            doc.save(loginUser.adminSubject + " marks.pdf");
-        });
-        document.getElementsByClassName("fakeTable")[0].style = "display: none";
+    const styles = StyleSheet.create({
+        page: {
+            flexDirection: "column",
+            padding: 20,
+            fontSize: "12px",
+        },
+        row: {
+            flexDirection: "row",
+            borderBottomWidth: 1,
+            borderBottomColor: "#000",
+        },
+        cell: {
+            flexBasis: "auto",
+            textAlign: "center",
+            padding: "15px",
+        },
+        cell1: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "120px",
+        },
+        cell2: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "250px",
+        },
+        cell3: {
+            marginRight: "10px",
+            borderRight: "2px solid black",
+            width: "30px",
+        },
+    });
+    const renderPDF = () => {
+        const data = []; // Array to hold table data
+
+        // Populate data array with table rows
+        // Replace this with your logic to populate the table rows
+        for (let i = 0; i < students.length; i++) {
+            data.push(
+                <View key={i} style={styles.row}>
+                    <Text style={(styles.cell, styles.cell1)}>
+                        {students[i].studentEnrollment}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell2)}>
+                        {students[i].studentName}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {students[i].studentMarks[index].mid1}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {students[i].studentMarks[index].mid2}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {students[i].studentMarks[index].mid1 +
+                            students[i].studentMarks[index].mid2}
+                    </Text>
+                    <Text style={(styles.cell, styles.cell3)}>
+                        {(
+                            ((students[i].studentMarks[index].mid1 +
+                                students[i].studentMarks[index].mid2) /
+                                80) *
+                            30
+                        ).toFixed(1)}
+                    </Text>
+                    {/* Add more columns as needed */}
+                </View>
+            );
+        }
+
+        // Render the PDF document
+        return (
+            <Document>
+                <Page size="A4" style={styles.page}>
+                    <Text style={{ marginBottom: "30px" }}>
+                        {loginUser.adminSubject} ({loginUser.adminSubjectCode})
+                    </Text>
+
+                    <View style={styles.row}>
+                        <Text style={(styles.cell, styles.cell1)}>
+                            Student Enrollment
+                        </Text>
+                        <Text style={(styles.cell, styles.cell2)}>
+                            Student Name
+                        </Text>
+                        <Text style={(styles.cell, styles.cell3)}>Mid 1</Text>
+                        <Text style={(styles.cell, styles.cell3)}>Mid 2</Text>
+                        <Text style={(styles.cell, styles.cell3)}>Total</Text>
+                        <Text style={(styles.cell, styles.cell3)}>From 30</Text>
+                        {/* Add more headers as needed */}
+                    </View>
+                    {/* Render table rows */}
+                    {data}
+                </Page>
+            </Document>
+        );
     };
     const getList = async () => {
         try {
@@ -69,7 +174,6 @@ function AdminPortal() {
                         break;
                     }
                 }
-                console.log("Egeg");
                 let sts;
                 if (data.status === 400) {
                     alert("Login again..");
@@ -85,7 +189,6 @@ function AdminPortal() {
                 } else {
                     cookie.remove("Token");
                     history("/adminLogin");
-                    console.log("gGW");
                     throw Error;
                 }
             }
@@ -98,7 +201,7 @@ function AdminPortal() {
         setProcessing(true);
         let arr = [];
         for (let i = 0; i < students.length; i++) {
-            let marks = document.getElementsByClassName(students[i]._id);
+            let marks = document.getElementsByName(students[i]._id);
             arr.push({
                 _id: students[i]._id,
                 mid1: marks[0].value,
@@ -159,7 +262,8 @@ function AdminPortal() {
                                 textDecorationColor: "#000",
                             }}
                         >
-                            Update Marks Of <br /> {loginUser.adminSubject}
+                            Update Marks Of <br /> {loginUser.adminSubject} (
+                            {loginUser.adminSubjectCode})
                         </div>
                     </div>
                     <div className="table">
@@ -179,25 +283,27 @@ function AdminPortal() {
                                         <td>{item.studentName}</td>
                                         <td>
                                             <input
-                                                className={item._id}
-                                                name="marks"
+                                                className="disable"
+                                                name={item._id}
                                                 type="number"
                                                 defaultValue={
                                                     item.studentMarks[index]
                                                         .mid1
                                                 }
+                                                min={0}
                                                 max={40}
                                             />
                                         </td>
                                         <td>
                                             <input
-                                                className={item._id}
-                                                name="marks"
+                                                className="disable"
+                                                name={item._id}
                                                 type="number"
                                                 defaultValue={
                                                     item.studentMarks[index]
                                                         .mid2
                                                 }
+                                                min={0}
                                                 max={40}
                                             />
                                         </td>
@@ -206,54 +312,14 @@ function AdminPortal() {
                                                 item.studentMarks[index].mid2}
                                         </td>
                                         <td>
-                                            {((item.studentMarks[index].mid1 +
-                                                item.studentMarks[index].mid2) /
-                                                80) *
-                                                30}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </table>
-                    </div>
-                    <div className="fakeTable" style={{ display: "none" }}>
-                        <div
-                            className="a"
-                            style={{
-                                textAlign: "center",
-                                fontSize: "30px",
-                                textDecorationLine: "underline",
-                                textDecorationStyle: "solid",
-                                textDecorationColor: "#000",
-                            }}
-                        >
-                            Marks Of <br /> {loginUser.adminSubject}
-                        </div>
-                        <table>
-                            <tr>
-                                <th>Student Enollment</th>
-                                <th>Student Name</th>
-                                <th>Mid 1</th>
-                                <th>Mid 2</th>
-                                <th>Total</th>
-                                <th>From 30</th>
-                            </tr>
-                            {students.map((item) => {
-                                return (
-                                    <tr key={item._id}>
-                                        <td>{item.studentEnrollment}</td>
-                                        <td>{item.studentName}</td>
-                                        <td>{item.studentMarks[index].mid1}</td>
-                                        <td>{item.studentMarks[index].mid2}</td>
-                                        <td>
-                                            {item.studentMarks[index].mid1 +
-                                                item.studentMarks[index].mid2}
-                                        </td>
-                                        <td>
-                                            {((item.studentMarks[index].mid1 +
-                                                item.studentMarks[index].mid2) /
-                                                80) *
-                                                30}
+                                            {(
+                                                ((item.studentMarks[index]
+                                                    .mid1 +
+                                                    item.studentMarks[index]
+                                                        .mid2) /
+                                                    80) *
+                                                30
+                                            ).toFixed(1)}
                                         </td>
                                     </tr>
                                 );
@@ -305,11 +371,22 @@ function AdminPortal() {
                         </div>
                         <div className="group">
                             <div className="cover">
-                                <div
-                                    className="buttonContainer"
-                                    onClick={downloadPdf}
-                                >
-                                    <button className="btn">Download</button>
+                                <div className="buttonContainer">
+                                    <PDFDownloadLink
+                                        className="btn"
+                                        document={renderPDF()}
+                                        fileName={
+                                            "Sem " +
+                                            loginUser.adminSemester +
+                                            "  " +
+                                            loginUser.adminSubject +
+                                            " Mid Marks"
+                                        }
+                                    >
+                                        <button className="btn">
+                                            Download
+                                        </button>
+                                    </PDFDownloadLink>
                                     <img
                                         src={arrow}
                                         alt="arrow"

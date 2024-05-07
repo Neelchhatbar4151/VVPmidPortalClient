@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setStudentUser, developement } from "../processes/userData";
 import Title from "../components/Title";
@@ -12,6 +12,24 @@ function StudentLogin() {
         userId: null,
         password: "",
     });
+    useEffect(() => {
+        const handleWheel = (event) => {
+            event.preventDefault();
+        };
+
+        // Disable increment/decrement functionality on mouse wheel scroll for all input elements
+        const inputElements = document.querySelectorAll(".disable");
+        inputElements.forEach((inputElement) => {
+            inputElement.addEventListener("wheel", handleWheel);
+        });
+
+        // Cleanup: remove event listeners when component unmounts
+        return () => {
+            inputElements.forEach((inputElement) => {
+                inputElement.removeEventListener("wheel", handleWheel);
+            });
+        };
+    }, []);
 
     const Handle = (event) => {
         const { name, value } = event.target;
@@ -67,21 +85,6 @@ function StudentLogin() {
         <>
             <div className="container">
                 <div className="Box">
-                    {/* <div className="nameCover">
-                        <img
-                            id="logo"
-                            src={vvp}
-                            alt="vvp logo"
-                            height={70}
-                            width={65}
-                        />
-                        <div className="titleText">
-                            V.V.P. ENGINEERING COLLEGE
-                        </div>
-                    </div>
-                    <div className="department">
-                        Department Of Information Technology
-                    </div> */}
                     <Title />
                     <div className="description">
                         <div className="a">A Web Portal For Viewing</div>
@@ -110,6 +113,7 @@ function StudentLogin() {
                             </div>
                             <div className="userId">
                                 <input
+                                    className="disable"
                                     type="number"
                                     placeholder="Enrollment no."
                                     name="userId"
@@ -137,13 +141,30 @@ function StudentLogin() {
                             />
                         </div>
                     </div>
-
                     <div className="credits">
-                        Developed By <u>Neel</u> and <u>Jay</u>
+                        Developed By{" "}
+                        <a href="https://neelchhatbar4151.github.io/portfolio/">
+                            Neel
+                        </a>
+                    </div>
+                    <div className="credits">
+                        Designed By{" "}
+                        <a href="https://neelchhatbar4151.github.io/portfolio/">
+                            Jay
+                        </a>
                     </div>
                 </div>
                 <div className="credit">
-                    Developed By <u>Neel</u> and <u>Jay</u>
+                    Developed By{" "}
+                    <a href="https://neelchhatbar4151.github.io/portfolio/">
+                        Neel
+                    </a>
+                </div>
+                <div className="credit">
+                    Designed By{" "}
+                    <a href="https://neelchhatbar4151.github.io/portfolio/">
+                        Jay
+                    </a>
                 </div>
             </div>
         </>
